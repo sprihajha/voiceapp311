@@ -4,7 +4,7 @@ Controller for mycity voice app.
 This class handles all voice requests.
 """
 
-from __future__ import print_function
+import logging
 from mycity.mycity_request_data_model import MyCityRequestDataModel
 from mycity.mycity_response_data_model import MyCityResponseDataModel
 from .intents.user_address_intent import set_address_in_session, \
@@ -16,7 +16,8 @@ from .intents.snow_parking_intent import get_snow_emergency_parking_intent
 from .intents import intent_constants
 
 
-LOG_CLASS = '\n\n[class: MyCityController]'
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 
 def execute_request(mycity_request):
@@ -24,12 +25,7 @@ def execute_request(mycity_request):
     Route the incoming request based on type (LaunchRequest, IntentRequest,
     etc.) The JSON body of the request is provided in the event parameter.
     """
-    print(
-        LOG_CLASS,
-        '[method: main]',
-        'MyCityRequestDataModel received:\n',
-        str(mycity_request)
-    )
+    logger.debug('[method: main] MyCityRequestDataModel received: ' + str(mycity_request))
 
     # TODO: This section should be generalized for all platforms if possible
     """
@@ -56,6 +52,7 @@ def on_session_started(mycity_request):
     """
     Called when the session starts.
     """
+    loo
     print(
         LOG_CLASS,
         '[method: on_session_started]',
