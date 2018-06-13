@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: arcgis
+Version: 1.4.0
+Summary: ArcGIS API for Python
+Home-page: https://developers.arcgis.com/python/
+Author: Esri
+Author-email: python@esri.com
+License: Esri Master License Agreement (MLA) - http://www.esri.com/LEGAL/pdfs/mla_e204_e300/english.pdf
+Keywords: gis arcgis geographic spatial spatial-data spatial-data-analysis spatial-analysis data-science maps mapping web-mapping python native-development
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Topic :: Scientific/Engineering :: GIS
+Classifier: Topic :: Internet :: WWW/HTTP :: Site Management
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Framework :: IPython
+Classifier: Framework :: Jupyter
+Classifier: Operating System :: OS Independent
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Requires-Dist: six
+Requires-Dist: ipywidgets (<7,>=5.2.2)
+Requires-Dist: widgetsnbextension (<3,>=1.2.6)
+Requires-Dist: pandas (>=0.22)
+Requires-Dist: numpy
+Requires-Dist: pyshp
+Requires-Dist: matplotlib
+Requires-Dist: keyring
+Requires-Dist: winkerberos; platform_system == "Windows"
+
+ArcGIS API for Python is a Python library for working with maps and geospatial data, powered by web GIS. It provides simple and efficient tools for sophisticated vector and raster analysis, geocoding, map making, routing and directions, as well as for organizing and managing a GIS with users, groups and information items. In addition to working with your own data, the library enables access to ready to use maps and curated geographic data from Esri and other authoritative sources. It also integrates well with the scientific Python ecosystem and includes rich support for Pandas and Jupyter notebook.
+
+

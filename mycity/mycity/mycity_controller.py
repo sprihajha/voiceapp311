@@ -15,9 +15,22 @@ from .intents.get_alerts_intent import get_alerts_intent
 from .intents.snow_parking_intent import get_snow_emergency_parking_intent
 from .intents import intent_constants
 
+# create logger
+logger = logging.getLogger('[class: MyCityController]')
+logger.setLevel(logging.DEBUG)
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+# create console handler and set level to debug
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+
+# create formatter
+formatter = logging.Formatter('%(levelname)s - %(name)s - %(message)s')
+
+# add formatter to ch
+ch.setFormatter(formatter)
+
+# add ch to logger
+logger.addHandler(ch)
 
 
 def execute_request(mycity_request):
@@ -52,32 +65,30 @@ def on_session_started(mycity_request):
     """
     Called when the session starts.
     """
-    loo
-    print(
-        LOG_CLASS,
-        '[method: on_session_started]',
-        '[requestId: ' + str(mycity_request.request_id) + ']',
-        '[sessionId: ' + str(mycity_request.session_id) + ']',
-        (
-            '[request object: ' + str(mycity_request) + ']' if
-            isinstance(mycity_request, MyCityRequestDataModel) else
-            '[request object: ' +
-            'ERROR - request should be a MyCityRequestDataModel.]'
-        )
+    
+    logger.debug('[method: on_session_started]' +
+                 '[requestId: ' + str(mycity_request.request_id) + ']'
+                 '[sessionId: ' + str(mycity_request.session_id) + ']',
+                 (
+                     '[request object: ' + str(mycity_request) + ']' if
+                     isinstance(mycity_request, MyCityRequestDataModel) else
+                     '[request object: ' +
+                     'ERROR - request should be a MyCityRequestDataModel.]'
+                 )
     )
+    
+
 
 def on_launch(mycity_request):
     """
     Called when the user launches the skill without specifying what
     they want.
     """
-    print(
-        LOG_CLASS,
-        '[method: on_launch]',
-        '[requestId: ' + str(mycity_request.request_id) + ']',
-        '[sessionId: ' + str(mycity_request.session_id) + ']'
-    )
-
+    
+    logger.debug('[method: on_launch]' +
+                 '[requestId: ' + str(mycity_request.request_id) + ']' +
+                 '[sessionId: ' + str(mycity_request.session_id) + ']')
+    
     # Dispatch to your skill's launch
     return get_welcome_response(mycity_request)
 
@@ -88,15 +99,12 @@ def on_intent(mycity_request):
     this function is called to execute the logic associated with the
     provided intent and build a response.
     """
-
-    print(
-        LOG_CLASS,
-        '[method: on_intent]',
-        '[intent: ' + mycity_request.intent_name + ']',
-        'MyCityRequestDataModel received:',
-        mycity_request
-    )
-
+    
+    logger.debug('[method: on_intent]' +
+                 '[intent: ' + str(mycity_request.intent_name) + ']' +
+                 'MyCityRequestDataModel received:' +
+                 str(mycity_request))
+    
     # Check if the user is setting the address. This is special cased
     # since they may have been prompted for this info from another intent
     if mycity_request.intent_name == "SetAddressIntent":
@@ -108,8 +116,10 @@ def on_intent(mycity_request):
             # Set our current intent to be that original intent now that
             # we have set the address.
             mycity_request.intent_name = mycity_request.session_attributes[intent_constants.ADDRESS_PROMPTED_FROM_INTENT]
-            print("Address set after calling another intent. Redirecting "
-                  "intent to {}".format(mycity_request.intent_name))
+            #print("Address set after calling another intent. Redirecting "
+            #      "intent to {}".format(mycity_request.intent_name))
+            #logger.info("Address set after calling another intent. Redirecting "
+            #            "intent to {}".format(mycity_request.intent_name))
             # Delete the session key indicating this intent was called
             # from another intent.
             del mycity_request.session_attributes[intent_constants.ADDRESS_PROMPTED_FROM_INTENT]
@@ -147,12 +157,11 @@ def on_session_ended(mycity_request):
     Called when the user ends the session.
     Is not called when the skill returns should_end_session=true
     """
-    print(
-        LOG_CLASS,
-        '[method: on_session_ended]',
-        'MyCityRequestDataModel received:',
-        str(mycity_request)
-    )
+    
+    logger.debug('[method: on_session_ended]' +
+                 'MyCityRequestDataModel received:' +
+                 str(mycity_request))
+    
     return MyCityResponseDataModel()
     # add cleanup logic here
 
@@ -162,10 +171,8 @@ def get_welcome_response(mycity_request):
     If we wanted to initialize the session to have some attributes we could
     add those here.
     """
-    print(
-        LOG_CLASS,
-        '[method: get_welcome_response]'
-    )
+    logger.debug('[method: get_welcome_response]')
+
     mycity_response = MyCityResponseDataModel()
     mycity_response.session_attributes = mycity_request.session_attributes
     mycity_response.card_title = "Welcome"
